@@ -1,5 +1,9 @@
-
 package Jak3;
+
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -12,6 +16,18 @@ public class Jak3 extends javax.swing.JFrame {
      */
     public Jak3() {
         initComponents();
+        adminC.cargarArchivo();
+        listaC = adminC.getListaCarros();
+        modeloARBOL = (DefaultTreeModel) jTree1.getModel();
+        raiz = (DefaultMutableTreeNode) modeloARBOL.getRoot();
+
+        if (!adminC.getListaCarros().isEmpty()) {
+            for (Carros c : adminC.getListaCarros()) {
+                carro = new DefaultMutableTreeNode(c);
+                raiz.add(carro);
+                modeloARBOL.reload();
+            }
+        }
     }
 
     /**
@@ -270,8 +286,15 @@ public class Jak3 extends javax.swing.JFrame {
 
         jLabel21.setText("Derrape");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Salto", "Ataque", "Belico" }));
+
         jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\baston-de-caramelo.png")); // NOI18N
         jButton4.setText("Crear");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         jLabel22.setText("Eliminar Carro");
 
@@ -285,7 +308,10 @@ public class Jak3 extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(297, 297, 297))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -302,13 +328,14 @@ public class Jak3 extends javax.swing.JFrame {
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jTextField6)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(243, 243, 243)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextField6))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(203, 203, 203)
+                                        .addComponent(jLabel21)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(54, 54, 54))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,6 +412,69 @@ public class Jak3 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        String nombre = jTextField1.getText();
+        int vida = Integer.parseInt(jTextField4.getText());
+        int velocidad = Integer.parseInt(jTextField2.getText());
+        double ataque = Integer.parseInt(jTextField5.getText());
+        double derrape = Integer.parseInt(jTextField6.getText());
+        String tipo = jComboBox1.getSelectedItem().toString();
+
+        if (tipo.equals("Normal")) {
+            listaC.add(new Carros(velocidad, derrape, nombre, ataque, vida));
+            adminC.setListaCarros(listaC);
+            adminC.escribirArchivo();
+        }
+
+        if (tipo.equals("Belico")) {
+            listaC.add(new Belicos(velocidad, derrape, nombre, ataque, vida));
+            for (Carros carros : listaC) {
+                if (carros.getNombre().equals(nombre)) {
+                    ((Belicos) carros).VidaExtra();
+                }
+            }
+            adminC.setListaCarros(listaC);
+            adminC.escribirArchivo();
+        }
+
+        if (tipo.equals("Salto")) {
+            listaC.add(new Salto(velocidad, derrape, nombre, ataque, vida));
+            for (Carros carros : listaC) {
+                if (carros.getNombre().equals(nombre)) {
+                    ((Salto) carros).setSalto(0);
+                }
+            }
+            adminC.setListaCarros(listaC);
+            adminC.escribirArchivo();
+        }
+
+        if (tipo.equals("Ataque")) {
+            listaC.add(new Ataque(velocidad, derrape, nombre, ataque, vida));
+            for (Carros carros : listaC) {
+                if (carros.getNombre().equals(nombre)) {
+                    ((Ataque) carros).ataqueExtra();
+                }
+            }
+            adminC.setListaCarros(listaC);
+            adminC.escribirArchivo();
+        }
+
+        JOptionPane.showMessageDialog(this, "Carro Creado");
+        jTextField1.setText("");
+        jTextField4.setText("");
+        jTextField2.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+
+        raiz.removeAllChildren();
+        for (Carros c : adminC.getListaCarros()) {
+            carro = new DefaultMutableTreeNode(c);
+            raiz.add(carro);
+            modeloARBOL.reload();
+        }
+
+    }//GEN-LAST:event_jButton4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -466,4 +556,9 @@ public class Jak3 extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
+    AdminCarros adminC = new AdminCarros("./Carros.cmb");
+    ArrayList<Carros> listaC = new ArrayList();
+    DefaultTreeModel modeloARBOL;
+    DefaultMutableTreeNode raiz;
+    DefaultMutableTreeNode carro;
 }

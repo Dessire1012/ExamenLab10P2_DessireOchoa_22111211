@@ -6,14 +6,14 @@ import java.util.Random;
 
 public class Malvado extends Carros {
 
-    public Malvado(int velocidad, double derrape, String nombre, int ataque, int vida) {
+    public Malvado(int velocidad, double derrape, String nombre, double ataque, int vida) {
         super(velocidad, derrape, nombre, ataque, vida);
     }
 
     public Malvado() {
     }
     
-    public double Vida(){
+    public int Vida(){
        Random r = new Random();
        return (super.getVida() + r.nextInt(5000-1000) + 1000);
     }

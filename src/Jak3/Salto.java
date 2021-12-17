@@ -7,7 +7,7 @@ public class Salto extends Carros{
     
     private int salto;
 
-    public Salto( int velocidad, double derrape, String nombre, int ataque, int vida) {
+    public Salto( int velocidad, double derrape, String nombre, double ataque, int vida) {
         super(velocidad, derrape, nombre, ataque, vida);
     }
    
@@ -25,6 +25,5 @@ public class Salto extends Carros{
     public String toString() {
         return super.toString();
     }
-
     
 }

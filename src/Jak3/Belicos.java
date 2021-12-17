@@ -11,11 +11,11 @@ public class Belicos extends Carros{
         super();
     }
 
-    public Belicos(int velocidad, double derrape, String nombre, int ataque, int vida) {
+    public Belicos(int velocidad, double derrape, String nombre, double ataque, int vida) {
         super(velocidad, derrape, nombre, ataque, vida);
     }
 
-    public double VidaExtra(){
+    public int VidaExtra(){
        Random r = new Random();
        return (super.getVida() + r.nextInt(100-50) + 50);
     }

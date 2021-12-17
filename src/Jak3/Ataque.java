@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Ataque extends Carros {
 
-    public Ataque(int velocidad, double derrape, String nombre, int ataque, int vida) {
+    public Ataque(int velocidad, double derrape, String nombre, double ataque, int vida) {
         super(velocidad, derrape, nombre, ataque, vida);
     }
 
