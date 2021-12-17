@@ -1,6 +1,7 @@
 package Jak3;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -20,12 +21,15 @@ public class Jak3 extends javax.swing.JFrame {
         listaC = adminC.getListaCarros();
         modeloARBOL = (DefaultTreeModel) jTree1.getModel();
         raiz = (DefaultMutableTreeNode) modeloARBOL.getRoot();
+        modeloCCarros = (DefaultComboBoxModel) jComboBox2.getModel();
 
         if (!adminC.getListaCarros().isEmpty()) {
             for (Carros c : adminC.getListaCarros()) {
                 carro = new DefaultMutableTreeNode(c);
                 raiz.add(carro);
                 modeloARBOL.reload();
+                modeloCCarros.addElement(c.toString());
+
             }
         }
     }
@@ -300,6 +304,11 @@ public class Jak3 extends javax.swing.JFrame {
 
         jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\luces.png")); // NOI18N
         jButton5.setText("Eliminar");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -476,6 +485,29 @@ public class Jak3 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton4MouseClicked
 
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        String nombreC = modeloCCarros.getSelectedItem().toString();
+        for (int i = 0; i < listaC.size(); i++) {
+            if (listaC.get(i).getNombre().equals(nombreC)) {
+                listaC.remove(i);
+            }
+        }
+
+        adminC.setListaCarros(listaC);
+        adminC.escribirArchivo();
+        modeloCCarros.removeElement(modeloCCarros.getSelectedItem());
+        raiz.removeAllChildren();
+        
+        for (Carros c : adminC.getListaCarros()) {
+            carro = new DefaultMutableTreeNode(c);
+            raiz.add(carro);
+            modeloARBOL.reload();
+        }
+        
+        JOptionPane.showMessageDialog(this, "Carro Eliminado");
+
+    }//GEN-LAST:event_jButton5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -561,4 +593,5 @@ public class Jak3 extends javax.swing.JFrame {
     DefaultTreeModel modeloARBOL;
     DefaultMutableTreeNode raiz;
     DefaultMutableTreeNode carro;
+    DefaultComboBoxModel modeloCCarros;
 }
