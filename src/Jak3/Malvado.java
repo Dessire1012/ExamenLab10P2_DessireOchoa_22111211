@@ -13,12 +13,12 @@ public class Malvado extends Carros {
     public Malvado() {
     }
     
-    public int Vida(){
+    public int addVida(){
        Random r = new Random();
        return (super.getVida() + r.nextInt(5000-1000) + 1000);
     }
     
-    public double Ataque(){
+    public double addAtaque(){
        Random r = new Random();
        return (super.getAtaque() + r.nextInt(700-300) + 300);
     }

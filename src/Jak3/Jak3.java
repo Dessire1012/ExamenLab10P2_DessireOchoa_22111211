@@ -18,17 +18,23 @@ public class Jak3 extends javax.swing.JFrame {
     public Jak3() {
         initComponents();
         adminC.cargarArchivo();
+        Malvado = new Malvado(500, 50, "Carro malo", 7050, 1500);
+        ((Malvado)Malvado).addAtaque();
+        ((Malvado)Malvado).addVida();
+        
         listaC = adminC.getListaCarros();
-        modeloARBOL = (DefaultTreeModel) jTree1.getModel();
-        raiz = (DefaultMutableTreeNode) modeloARBOL.getRoot();
-        modeloCCarros = (DefaultComboBoxModel) jComboBox2.getModel();
+        modeloA = (DefaultTreeModel) jTree1.getModel();
+        raiz = (DefaultMutableTreeNode) modeloA.getRoot();
+        modeloCarros = (DefaultComboBoxModel) jComboBox2.getModel();
+        jugadores.add(new Jugadores("Jak", 5000, 5000));
+        jugadores.add(new Jugadores("Ciber Errol", 30000, 500));
 
         if (!adminC.getListaCarros().isEmpty()) {
             for (Carros c : adminC.getListaCarros()) {
-                carro = new DefaultMutableTreeNode(c);
-                raiz.add(carro);
-                modeloARBOL.reload();
-                modeloCCarros.addElement(c.toString());
+                _carro = new DefaultMutableTreeNode(c);
+                raiz.add(_carro);
+                modeloA.reload();
+                modeloCarros.addElement(c.toString());
 
             }
         }
@@ -55,20 +61,20 @@ public class Jak3 extends javax.swing.JFrame {
         jTree1 = new javax.swing.JTree();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
         jProgressBar2 = new javax.swing.JProgressBar();
+        jProgressBar1 = new javax.swing.JProgressBar();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jLabel_Nombre = new javax.swing.JLabel();
+        jLabel_NBatalla = new javax.swing.JLabel();
+        jLabel_AtaqueJak = new javax.swing.JLabel();
+        jLabel_AtaqueCiber = new javax.swing.JLabel();
+        jLabel_VidaJak = new javax.swing.JLabel();
+        jLabel_VidaCiber = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -146,6 +152,7 @@ public class Jak3 extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 102, 102));
@@ -162,15 +169,28 @@ public class Jak3 extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\galletas.png")); // NOI18N
         jLabel5.setText("Jak");
 
-        jProgressBar1.setBackground(new java.awt.Color(204, 51, 0));
+        jProgressBar2.setBackground(new java.awt.Color(204, 51, 0));
+        jProgressBar2.setValue(100);
 
-        jProgressBar2.setBackground(new java.awt.Color(0, 204, 51));
+        jProgressBar1.setBackground(new java.awt.Color(0, 204, 51));
+        jProgressBar1.setValue(100);
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\ciervo.png")); // NOI18N
         jButton2.setText("Iniciar Partida");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\galleta-y-leche.png")); // NOI18N
         jButton3.setText("Pausar Partida");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jLabel6.setText("Ataque Jak:");
 
@@ -180,17 +200,17 @@ public class Jak3 extends javax.swing.JFrame {
 
         jLabel9.setText("Vida Ciber Errol:");
 
-        jLabel10.setText("_");
+        jLabel_Nombre.setText("_");
 
-        jLabel11.setText("_");
+        jLabel_NBatalla.setText("_");
 
-        jLabel12.setText("_");
+        jLabel_AtaqueJak.setText("_");
 
-        jLabel13.setText("_");
+        jLabel_AtaqueCiber.setText("_");
 
-        jLabel14.setText("_");
+        jLabel_VidaJak.setText("_");
 
-        jLabel15.setText("_");
+        jLabel_VidaCiber.setText("_");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -204,30 +224,32 @@ public class Jak3 extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jProgressBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                            .addComponent(jProgressBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel_Nombre)
+                    .addComponent(jLabel_NBatalla)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(117, 117, 117)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel_VidaJak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel_AtaqueJak, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(93, 93, 93)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel_VidaCiber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                                .addComponent(jLabel_AtaqueCiber, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(32, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -243,11 +265,11 @@ public class Jak3 extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -256,18 +278,18 @@ public class Jak3 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel_AtaqueJak)
+                    .addComponent(jLabel_AtaqueCiber))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(jLabel_VidaJak)
+                    .addComponent(jLabel_VidaCiber))
                 .addGap(29, 29, 29)
-                .addComponent(jLabel10)
+                .addComponent(jLabel_Nombre)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel11)
+                .addComponent(jLabel_NBatalla)
                 .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -477,16 +499,18 @@ public class Jak3 extends javax.swing.JFrame {
         jTextField6.setText("");
 
         raiz.removeAllChildren();
+        modeloCarros.removeAllElements();
         for (Carros c : adminC.getListaCarros()) {
-            carro = new DefaultMutableTreeNode(c);
-            raiz.add(carro);
-            modeloARBOL.reload();
+            _carro = new DefaultMutableTreeNode(c);
+            raiz.add(_carro);
+            modeloA.reload();
+            modeloCarros.addElement(c);
         }
 
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        String nombreC = modeloCCarros.getSelectedItem().toString();
+        String nombreC = modeloCarros.getSelectedItem().toString();
         for (int i = 0; i < listaC.size(); i++) {
             if (listaC.get(i).getNombre().equals(nombreC)) {
                 listaC.remove(i);
@@ -495,18 +519,38 @@ public class Jak3 extends javax.swing.JFrame {
 
         adminC.setListaCarros(listaC);
         adminC.escribirArchivo();
-        modeloCCarros.removeElement(modeloCCarros.getSelectedItem());
+        modeloCarros.removeElement(modeloCarros.getSelectedItem());
         raiz.removeAllChildren();
-        
+
         for (Carros c : adminC.getListaCarros()) {
-            carro = new DefaultMutableTreeNode(c);
-            raiz.add(carro);
-            modeloARBOL.reload();
+            _carro = new DefaultMutableTreeNode(c);
+            raiz.add(_carro);
+            modeloA.reload();
         }
-        
+
         JOptionPane.showMessageDialog(this, "Carro Eliminado");
 
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        Object v1 = jTree1.getSelectionPath().getLastPathComponent();
+        DefaultMutableTreeNode nodo_seleccionado = (DefaultMutableTreeNode) v1;
+        Carros seleccionado = (Carros)nodo_seleccionado.getUserObject();
+        jLabel_AtaqueJak.setText(String.valueOf(seleccionado.getAtaque()));
+        jLabel_VidaJak.setText(String.valueOf(seleccionado.getVida()));
+        Progreso = new AdminProgreso(jProgressBar1, jProgressBar2, jLabel_AtaqueJak, jLabel_AtaqueCiber, 
+                jLabel_VidaJak, jLabel_VidaCiber);
+        
+        jLabel_AtaqueCiber.setText(String.valueOf(Malvado.getAtaque()));
+        jLabel_VidaCiber.setText(String.valueOf(Malvado.getVida()));
+        
+        //Progreso.start();
+        //Progreso.setAvanzar(true);
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        Progreso.setAvanzar(false);
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -553,12 +597,6 @@ public class Jak3 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JFrame jFrame_HasGanado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -574,6 +612,12 @@ public class Jak3 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_AtaqueCiber;
+    private javax.swing.JLabel jLabel_AtaqueJak;
+    private javax.swing.JLabel jLabel_NBatalla;
+    private javax.swing.JLabel jLabel_Nombre;
+    private javax.swing.JLabel jLabel_VidaCiber;
+    private javax.swing.JLabel jLabel_VidaJak;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -590,8 +634,11 @@ public class Jak3 extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     AdminCarros adminC = new AdminCarros("./Carros.cmb");
     ArrayList<Carros> listaC = new ArrayList();
-    DefaultTreeModel modeloARBOL;
+    DefaultTreeModel modeloA;
     DefaultMutableTreeNode raiz;
-    DefaultMutableTreeNode carro;
-    DefaultComboBoxModel modeloCCarros;
+    DefaultMutableTreeNode _carro;
+    DefaultComboBoxModel modeloCarros;
+    ArrayList<Jugadores> jugadores = new ArrayList();
+    AdminProgreso Progreso;
+    Carros Malvado;
 }
