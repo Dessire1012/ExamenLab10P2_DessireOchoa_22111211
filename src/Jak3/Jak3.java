@@ -18,7 +18,7 @@ public class Jak3 extends javax.swing.JFrame {
     public Jak3() {
         initComponents();
         adminC.cargarArchivo();
-        Malvado = new Malvado(5000, 50, "Carro malo", 7500, 1500);
+        Malvado = new Malvado(5000, 50, "Carro malo", 750, 1500);
         ((Malvado)Malvado).addAtaque();
         ((Malvado)Malvado).addVida();
         
@@ -243,12 +243,13 @@ public class Jak3 extends javax.swing.JFrame {
         jLabel5.setText("Jak");
 
         jProgressBar2.setBackground(new java.awt.Color(204, 51, 0));
+        jProgressBar2.setForeground(new java.awt.Color(204, 51, 0));
         jProgressBar2.setValue(10000);
 
         jProgressBar1.setBackground(new java.awt.Color(0, 204, 51));
+        jProgressBar1.setForeground(new java.awt.Color(0, 204, 0));
         jProgressBar1.setValue(10000);
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\ciervo.png")); // NOI18N
         jButton2.setText("Iniciar Partida");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
