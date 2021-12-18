@@ -131,20 +131,35 @@ public class AdminProgreso extends Thread {
         int count = 0;
         while (vive) {
             while (avanzar) {
-                try {
-                    barra2.setValue(barra2.getValue() - AtaqueJak);
+                barra2.setValue(barra2.getValue() - AtaqueJak);
+                barra.setValue(barra.getValue() - AtaqueCiber);
+                jLabel_Nombre.setText("Carro de Jak vs Carro Malvado de Ciber Errol");
+                jLabel_NBatalla.setText("Batalla Inicial");
+
+                if (barra2.getValue() <= 0) {
+                    vive = false;
+                    ganaste.pack();
+                    ganaste.setLocationRelativeTo(barra);
+                    ganaste.setVisible(true);
+                    break;
+                }
+
+                if (barra.getValue() <= 0) {
+                    vive = false;
+                    perdiste.pack();
+                    perdiste.setLocationRelativeTo(barra);
+                    perdiste.setVisible(true);
+                    break;
+                }
+
+                if (count == 2) {
+                    barra.setValue(barra.getMaximum());
+                    barra2.setValue(barra.getMaximum());
+                    jLabel_Nombre.setText("Jak vs Ciber Errol");
+                    jLabel_NBatalla.setText("Batalla Final");
                     barra.setValue(barra.getValue() - AtaqueCiber);
-                    jLabel_Nombre.setText("Carro de Jak vs Carro Malvado de Ciber Errol");
-                    jLabel_NBatalla.setText("Batalla Inicial");
-
-                    if (barra2.getValue() <= 0) {
-                        vive = false;
-                        ganaste.pack();
-                        ganaste.setLocationRelativeTo(barra);
-                        ganaste.setVisible(true);
-                        break;
-                    }
-
+                    barra2.setValue(barra2.getValue() - AtaqueJak);
+                    count = 0;
                     if (barra.getValue() <= 0) {
                         vive = false;
                         perdiste.pack();
@@ -152,26 +167,21 @@ public class AdminProgreso extends Thread {
                         perdiste.setVisible(true);
                         break;
                     }
-
-                    if (count == 2) {
-                        jLabel_Nombre.setText("Jak vs Ciber Errol");
-                        jLabel_NBatalla.setText("Batalla Final");
-                        barra.setValue(barra.getValue() - AtaqueCiber);
-                        count = 0;
-                        if (barra.getValue() <= 0) {
-                            vive = false;
-                            perdiste.pack();
-                            perdiste.setLocationRelativeTo(barra);
-                            perdiste.setVisible(true);
-                            break;
-                        }
+                    if (barra2.getValue() <= 0) {
+                        vive = false;
+                        ganaste.pack();
+                        ganaste.setLocationRelativeTo(barra);
+                        ganaste.setVisible(true);
+                        break;
                     }
-
-                    Thread.sleep(500);
-                    count++;
-
-                } catch (InterruptedException ex) {
                 }
+                count++;
+            }
+            try {
+
+                Thread.sleep(500);
+
+            } catch (InterruptedException ex) {
             }
         }
     }
