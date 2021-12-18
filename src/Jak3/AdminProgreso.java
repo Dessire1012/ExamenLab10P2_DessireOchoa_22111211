@@ -1,34 +1,50 @@
-
 package Jak3;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
-
-public class AdminProgreso extends Thread{
+public class AdminProgreso extends Thread {
 
     private JProgressBar barra;
     private JProgressBar barra2;
-    private JLabel jLabel_AtaqueJak;
-    private JLabel jLabel_AtaqueCiber;
+    private int AtaqueJak;
+    private int AtaqueCiber;
     private JLabel jLabel_VidaJak;
     private JLabel jLabel_VidaCiber;
     private boolean avanzar;
     private boolean vive;
+    private JFrame ganaste;
+    private JFrame perdiste;
 
-
-    public AdminProgreso(JProgressBar barra, JProgressBar barra2, JLabel jLabel_AtaqueJak, JLabel jLabel_AtaqueCiber, JLabel jLabel_VidaJak, JLabel jLabel_VidaCiber) {
+    public AdminProgreso(JProgressBar barra, JProgressBar barra2, int AtaqueJak, int AtaqueCiber, JLabel jLabel_VidaJak, JLabel jLabel_VidaCiber) {
         this.barra = barra;
         this.barra2 = barra2;
-        this.jLabel_AtaqueJak = jLabel_AtaqueJak;
-        this.jLabel_AtaqueCiber = jLabel_AtaqueCiber;
+        this.AtaqueJak = AtaqueJak;
+        this.AtaqueCiber = AtaqueCiber;
         this.jLabel_VidaJak = jLabel_VidaJak;
         this.jLabel_VidaCiber = jLabel_VidaCiber;
         this.avanzar = true;
         this.vive = true;
     }
-    
-    
+
+    public JFrame getGanaste() {
+        return ganaste;
+    }
+
+    public void setGanaste(JFrame ganaste) {
+        this.ganaste = ganaste;
+    }
+
+    public JFrame getPerdiste() {
+        return perdiste;
+    }
+
+    public void setPerdiste(JFrame perdiste) {
+        this.perdiste = perdiste;
+    }
+
 
     public JProgressBar getBarra2() {
         return barra2;
@@ -38,20 +54,20 @@ public class AdminProgreso extends Thread{
         this.barra2 = barra2;
     }
 
-    public JLabel getjLabel_AtaqueJak() {
-        return jLabel_AtaqueJak;
+    public int getAtaqueJak() {
+        return AtaqueJak;
     }
 
-    public void setjLabel_AtaqueJak(JLabel jLabel_AtaqueJak) {
-        this.jLabel_AtaqueJak = jLabel_AtaqueJak;
+    public void setAtaqueJak(int AtaqueJak) {
+        this.AtaqueJak = AtaqueJak;
     }
 
-    public JLabel getjLabel_AtaqueCiber() {
-        return jLabel_AtaqueCiber;
+    public int getAtaqueCiber() {
+        return AtaqueCiber;
     }
 
-    public void setjLabel_AtaqueCiber(JLabel jLabel_AtaqueCiber) {
-        this.jLabel_AtaqueCiber = jLabel_AtaqueCiber;
+    public void setAtaqueCiber(int AtaqueCiber) {
+        this.AtaqueCiber = AtaqueCiber;
     }
 
     public JLabel getjLabel_VidaJak() {
@@ -69,7 +85,6 @@ public class AdminProgreso extends Thread{
     public void setjLabel_VidaCiber(JLabel jLabel_VidaCiber) {
         this.jLabel_VidaCiber = jLabel_VidaCiber;
     }
-
 
     public JProgressBar getBarra() {
         return barra;
@@ -94,31 +109,42 @@ public class AdminProgreso extends Thread{
     public void setVive(boolean vive) {
         this.vive = vive;
     }
-    
+
     @Override
-    public void run(){
+    public void run() {
         int count = 0;
-        while(vive){ 
-            while(avanzar){
+        while (vive) {
+            while (avanzar) {
                 try {
-                    barra2.setValue(barra2.getValue()-Integer.parseInt(jLabel_AtaqueJak.getText()));
-                    if (barra2.getValue() <= 0){
+                    barra2.setValue(barra2.getValue() - AtaqueJak);
+                    if (barra2.getValue() <= 0) {
                         vive = false;
+                        ganaste.pack();
+                        ganaste.setLocationRelativeTo(barra);
+                        ganaste.setVisible(true);
+
                         break;
                     }
-                    if (count == 2){
-                        barra.setValue(barra.getValue()-Integer.parseInt(jLabel_AtaqueCiber.getText()));
-                        
+
+                    if (count == 2) {
+                        barra.setValue(barra.getValue() - AtaqueCiber);
+                        count = 0;
+                        if (barra.getValue() <= 0) {
+                            vive = false;
+                            perdiste.pack();
+                            perdiste.setLocationRelativeTo(barra);
+                            perdiste.setVisible(true);
+                            break;
+                        }
                     }
-                    
+
                     Thread.sleep(500);
                     count++;
 
                 } catch (InterruptedException ex) {
-                }   
-            }     
+                }
+            }
         }
     }
-    
-    
+
 }

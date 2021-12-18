@@ -18,7 +18,7 @@ public class Jak3 extends javax.swing.JFrame {
     public Jak3() {
         initComponents();
         adminC.cargarArchivo();
-        Malvado = new Malvado(500, 50, "Carro malo", 7050, 1500);
+        Malvado = new Malvado(500, 50, "Carro malo", 7500, 1500);
         ((Malvado)Malvado).addAtaque();
         ((Malvado)Malvado).addVida();
         
@@ -54,6 +54,11 @@ public class Jak3 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jFrame_HasPerdido = new javax.swing.JFrame();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -103,6 +108,11 @@ public class Jak3 extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\icons8-árbol-conífero-16.png")); // NOI18N
         jButton1.setText("Okay");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -151,6 +161,69 @@ public class Jak3 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel10.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 153, 51));
+        jLabel10.setText("Has perdido");
+
+        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\pavo (1).png")); // NOI18N
+
+        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\icons8-árbol-conífero-16.png")); // NOI18N
+        jButton6.setText("Okay");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jButton6)))
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(48, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(37, 37, 37)
+                .addComponent(jButton6)
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jFrame_HasPerdidoLayout = new javax.swing.GroupLayout(jFrame_HasPerdido.getContentPane());
+        jFrame_HasPerdido.getContentPane().setLayout(jFrame_HasPerdidoLayout);
+        jFrame_HasPerdidoLayout.setHorizontalGroup(
+            jFrame_HasPerdidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jFrame_HasPerdidoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jFrame_HasPerdidoLayout.setVerticalGroup(
+            jFrame_HasPerdidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jFrame_HasPerdidoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -170,10 +243,10 @@ public class Jak3 extends javax.swing.JFrame {
         jLabel5.setText("Jak");
 
         jProgressBar2.setBackground(new java.awt.Color(204, 51, 0));
-        jProgressBar2.setValue(100);
+        jProgressBar2.setValue(10000);
 
         jProgressBar1.setBackground(new java.awt.Color(0, 204, 51));
-        jProgressBar1.setValue(100);
+        jProgressBar1.setValue(10000);
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\dessi\\Downloads\\Uni\\4 Semestre\\Lab Programación II\\ExamenLab10P2_DessireOchoa_22111211\\Iconos\\ciervo.png")); // NOI18N
@@ -538,19 +611,38 @@ public class Jak3 extends javax.swing.JFrame {
         Carros seleccionado = (Carros)nodo_seleccionado.getUserObject();
         jLabel_AtaqueJak.setText(String.valueOf(seleccionado.getAtaque()));
         jLabel_VidaJak.setText(String.valueOf(seleccionado.getVida()));
-        Progreso = new AdminProgreso(jProgressBar1, jProgressBar2, jLabel_AtaqueJak, jLabel_AtaqueCiber, 
-                jLabel_VidaJak, jLabel_VidaCiber);
-        
+       
         jLabel_AtaqueCiber.setText(String.valueOf(Malvado.getAtaque()));
         jLabel_VidaCiber.setText(String.valueOf(Malvado.getVida()));
         
-        //Progreso.start();
-        //Progreso.setAvanzar(true);
+        jProgressBar1.setMaximum(seleccionado.getVida());
+        jProgressBar2.setMaximum(Malvado.getVida());
+        
+        Progreso = new AdminProgreso(jProgressBar1, jProgressBar2, (int)seleccionado.getAtaque(), (int)Malvado.getAtaque(), 
+                jLabel_VidaJak, jLabel_VidaCiber);
+        Progreso.setGanaste(jFrame_HasGanado);
+        Progreso.setPerdiste(jFrame_HasPerdido);
+        
+        Progreso.start();
+        Progreso.setAvanzar(true);
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         Progreso.setAvanzar(false);
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        jFrame_HasGanado.setVisible(false);
+        jProgressBar1.setValue(jProgressBar1.getMaximum());
+        jProgressBar2.setValue(jProgressBar2.getMaximum());
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        jFrame_HasPerdido.setVisible(false);
+        jProgressBar1.setValue(jProgressBar1.getMaximum());
+        jProgressBar2.setValue(jProgressBar2.getMaximum());
+    }//GEN-LAST:event_jButton6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -593,10 +685,14 @@ public class Jak3 extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JFrame jFrame_HasGanado;
+    private javax.swing.JFrame jFrame_HasPerdido;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -621,6 +717,7 @@ public class Jak3 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JScrollPane jScrollPane1;
