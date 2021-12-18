@@ -18,7 +18,7 @@ public class Jak3 extends javax.swing.JFrame {
     public Jak3() {
         initComponents();
         adminC.cargarArchivo();
-        Malvado = new Malvado(500, 50, "Carro malo", 7500, 1500);
+        Malvado = new Malvado(5000, 50, "Carro malo", 7500, 1500);
         ((Malvado)Malvado).addAtaque();
         ((Malvado)Malvado).addVida();
         
@@ -301,8 +301,6 @@ public class Jak3 extends javax.swing.JFrame {
                             .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel_Nombre)
-                    .addComponent(jLabel_NBatalla)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -322,7 +320,9 @@ public class Jak3 extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel_AtaqueCiber, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jLabel_AtaqueCiber, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel_NBatalla, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -622,6 +622,8 @@ public class Jak3 extends javax.swing.JFrame {
                 jLabel_VidaJak, jLabel_VidaCiber);
         Progreso.setGanaste(jFrame_HasGanado);
         Progreso.setPerdiste(jFrame_HasPerdido);
+        Progreso.setjLabel_NBatalla(jLabel_NBatalla);
+        Progreso.setjLabel_Nombre(jLabel_Nombre);
         
         Progreso.start();
         Progreso.setAvanzar(true);

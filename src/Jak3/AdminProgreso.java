@@ -2,7 +2,6 @@ package Jak3;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 public class AdminProgreso extends Thread {
@@ -17,6 +16,8 @@ public class AdminProgreso extends Thread {
     private boolean vive;
     private JFrame ganaste;
     private JFrame perdiste;
+    private JLabel jLabel_Nombre;
+    private JLabel jLabel_NBatalla;
 
     public AdminProgreso(JProgressBar barra, JProgressBar barra2, int AtaqueJak, int AtaqueCiber, JLabel jLabel_VidaJak, JLabel jLabel_VidaCiber) {
         this.barra = barra;
@@ -45,6 +46,21 @@ public class AdminProgreso extends Thread {
         this.perdiste = perdiste;
     }
 
+    public JLabel getjLabel_Nombre() {
+        return jLabel_Nombre;
+    }
+
+    public void setjLabel_Nombre(JLabel jLabel_Nombre) {
+        this.jLabel_Nombre = jLabel_Nombre;
+    }
+
+    public JLabel getjLabel_NBatalla() {
+        return jLabel_NBatalla;
+    }
+
+    public void setjLabel_NBatalla(JLabel jLabel_NBatalla) {
+        this.jLabel_NBatalla = jLabel_NBatalla;
+    }
 
     public JProgressBar getBarra2() {
         return barra2;
@@ -117,16 +133,29 @@ public class AdminProgreso extends Thread {
             while (avanzar) {
                 try {
                     barra2.setValue(barra2.getValue() - AtaqueJak);
+                    barra.setValue(barra.getValue() - AtaqueCiber);
+                    jLabel_Nombre.setText("Carro de Jak vs Carro Malvado de Ciber Errol");
+                    jLabel_NBatalla.setText("Batalla Inicial");
+
                     if (barra2.getValue() <= 0) {
                         vive = false;
                         ganaste.pack();
                         ganaste.setLocationRelativeTo(barra);
                         ganaste.setVisible(true);
+                        break;
+                    }
 
+                    if (barra.getValue() <= 0) {
+                        vive = false;
+                        perdiste.pack();
+                        perdiste.setLocationRelativeTo(barra);
+                        perdiste.setVisible(true);
                         break;
                     }
 
                     if (count == 2) {
+                        jLabel_Nombre.setText("Jak vs Ciber Errol");
+                        jLabel_NBatalla.setText("Batalla Final");
                         barra.setValue(barra.getValue() - AtaqueCiber);
                         count = 0;
                         if (barra.getValue() <= 0) {
